@@ -22,8 +22,10 @@
 
                     <div class="row justify-content-center">
                         <div class="col-md-10 col-lg-7 col-xl-6">
+
                             <form class="card border-secondary rounded-4 bg-black bg-opacity-25 shadow" method="POST"
-                                action="#">
+                                action="{{ route('generator.generate') }}">
+                                @csrf
                                 <div class="card-body p-4">
 
                                     <div class="mb-4">
@@ -31,9 +33,12 @@
                                             class="form-label small text-uppercase text-secondary fw-semibold">
                                             Keywords or business idea
                                         </label>
-                                        <input type="text" id="keywords" name="keywords"
-                                            class="form-control form-control-lg"
+                                        <input type="text" id="keywords" name="keywords" value="{{ old('keywords') }}"
+                                            class="form-control form-control-lg @error('keywords') is-invalid @enderror"
                                             placeholder="e.g. fashion, swift logistics, food and drinks">
+                                        @error('keywords')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="mb-4">
@@ -41,16 +46,19 @@
                                             class="form-label small text-uppercase text-secondary fw-semibold">
                                             Industry
                                         </label>
-                                        <select id="industry" name="industry" class="form-select form-select-lg">
-                                            <option selected>Choose an industry</option>
-                                            <option value="fashion">Fashion</option>
-                                            <option value="food-and-drink">Food and drink</option>
-                                            <option value="logistics">Logistics</option>
-                                            <option value="technology">Technology</option>
+                                        <select id="industry" name="industry"
+                                            class="form-select form-select-lg @error('industry') is-invalid @enderror">
+                                            <option value="" @selected(!old('industry'))>Choose an industry</option>
+                                            @foreach ($industries as $industry)
+                                                <option value="{{ $industry }}" @selected(old('industry') === $industry)>
+                                                    {{ ucfirst($industry) }}
+                                                </option>
+                                            @endforeach
                                         </select>
+                                        @error('industry')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
-
-
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary text-white btn-lg fw-semibold px-4">
@@ -65,6 +73,9 @@
 
                 </div>
             </section>
+
+
+           
         </div>
     </div>
 @endsection

@@ -1,66 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Business Name Generator UK
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Tests](https://github.com/YOUR-USERNAME/YOUR-REPO/actions/workflows/tests.yml/badge.svg)
 
-## About Laravel
+A small Laravel app that turns a few keywords and an industry into business name ideas, tagline suggestions and a matching brand palette with font pairings.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This is a stripped-down, standalone version of a tool that runs in production on [Built For Small Business](https://builtforsmallbusiness.com), a free business management platform for UK sole traders and small companies. The production version also checks domain and social handle availability and stores searches. This one keeps only the offline logic, so it has no database, no API keys and no external calls.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## What it does
 
-## Learning Laravel
+- Builds names from your keywords using four patterns: keyword and suffix, prefix and keyword, industry-branded prefix and suffix, and keyword pairs.
+- Returns up to 15 unique names per search.
+- Suggests five taglines for the chosen industry.
+- Shows a five-colour brand palette with heading and body fonts.
+- Covers ten industries, with a default fallback.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Laravel 12, PHP 8.3+, Blade and Bootstrap 5.3 from a CDN. There is no build step.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Run it locally
 
-## Laravel Sponsors
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
+cd YOUR-REPO
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan serve
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Run the tests
 
-### Premium Partners
+```bash
+php artisan test
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+The same command runs on every push through GitHub Actions, on PHP 8.3 and 8.4.
 
-## Contributing
+## What is tested
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Unit tests** (`tests/Unit/BusinessNameServiceTest.php`)
 
-## Code of Conduct
+- Each name pattern produces the expected names, checked against the unshuffled candidate pool.
+- Keywords are cleaned: punctuation, digits and one-letter words are dropped.
+- Empty keywords, unknown industries and mixed-case industries fall back or normalise correctly.
+- Output is capped at 15 names and never contains duplicates.
+- Randomness is injected, so a seeded run gives the same names every time.
+- Every industry has a complete palette with valid hex colours, plus taglines.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Feature tests** (`tests/Feature/NameGeneratorTest.php`)
 
-## Security Vulnerabilities
+- The form loads with no results showing, and the dropdown is built from the service.
+- A valid submission renders names, taglines and the palette.
+- Every industry can be submitted.
+- Empty keywords, keywords with no letters, over-long keywords, a missing industry and an unknown industry are all rejected.
+- Entered keywords are kept when validation fails.
+- Markup typed into the form is escaped in the response.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Structure
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+app/Services/BusinessNameService.php        name, palette and tagline logic
+app/Http/Requests/GenerateNamesRequest.php  validation
+app/Http/Controllers/NameGeneratorController.php
+resources/views/generator.blade.php
+tests/Unit/BusinessNameServiceTest.php
+tests/Feature/NameGeneratorTest.php
+```
