@@ -1,6 +1,6 @@
 # Business Name Generator UK
 
-![Tests](https://github.com/YOUR-USERNAME/YOUR-REPO/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/iamjoshade/business-name-generator/actions/workflows/tests.yml/badge.svg)
 
 A small Laravel app that turns a few keywords and an industry into business name ideas, tagline suggestions and a matching brand palette with font pairings.
 
