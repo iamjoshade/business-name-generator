@@ -3,7 +3,7 @@
 
 A simple business name generator with tagline and colours for small businesses
 
-![Image description](https://github.com/iamjoshade/business-name-generator/blob/3d9de06d059066ac80b60170b80bc5f7de4a388d/business-name-generator.png)
+![Business name generator showing names, taglines and a colour palette](https://github.com/iamjoshade/business-name-generator/blob/3d9de06d059066ac80b60170b80bc5f7de4a388d/business-name-generator.png)
 
 ![Tests](https://img.shields.io/github/actions/workflow/status/iamjoshade/business-name-generator/tests.yml?branch=main&label=tests)
 
@@ -28,7 +28,7 @@ Laravel 12, PHP 8.3+, Blade and Bootstrap 5.3 from a CDN. There is no build step
 
 ```bash
 git clone https://github.com/iamjoshade/business-name-generator.git
-cd YOUR-REPO
+cd business-name-generator
 composer install
 cp .env.example .env
 php artisan key:generate
