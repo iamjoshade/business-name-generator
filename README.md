@@ -22,7 +22,7 @@ Laravel 12, PHP 8.3+, Blade and Bootstrap 5.3 from a CDN. There is no build step
 ## Run it locally
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
+git clone https://github.com/iamjoshade/business-name-generator.git
 cd YOUR-REPO
 composer install
 cp .env.example .env
