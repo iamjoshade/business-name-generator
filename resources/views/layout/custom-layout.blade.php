@@ -8,6 +8,8 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Generate free business names for your business</title>
+    <meta name="description"
+        content="Generate business name ideas, for your new business, startup, or side hustle. Get inspired with our free business name generator. Ready in under a minute.">
     @stack('head')
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +25,7 @@
 
 <body data-bs-theme="dark">
 
-   
+
 
     @stack('scripts')
 </body>

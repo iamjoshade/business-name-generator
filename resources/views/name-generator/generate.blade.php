@@ -5,7 +5,7 @@
 
 <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-lg-6">
+            <div class="col-lg-10 col-xl-8">
 
                 <h1 class="display-5 fw-bold text-center mb-3">Free Business Name Generator UK</h1>
                 <p class="text-center mb-4">

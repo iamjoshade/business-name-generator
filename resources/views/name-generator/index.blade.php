@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="row justify-content-center">
-                        <div class="col-md-10 col-lg-7 col-xl-6">
+                        <div class="col-md-10 col-lg-7 col-xl-8">
 
                             <form class="card border-secondary rounded-4 bg-black bg-opacity-25 shadow" method="POST"
                                 action="{{ route('generator.generate') }}">
@@ -75,7 +75,7 @@
             </section>
 
 
-           
+
         </div>
     </div>
 @endsection
