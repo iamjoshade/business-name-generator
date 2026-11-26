@@ -1,13 +1,9 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NameGeneratorController;
 use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [HomeController::class, 'index'])->name('generator.index');
-Route::post('/generate', [HomeController::class, 'generate'])->name('generator.generate');
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [NameGeneratorController::class, 'index'])->name('generator.index');
+Route::post('/generate', [NameGeneratorController::class, 'generate'])->name('generator.generate');

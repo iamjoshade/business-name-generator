@@ -7,7 +7,7 @@ use App\Services\BusinessNameService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 
-class HomeController extends Controller
+class NameGeneratorController extends Controller
 {
 
     public function __construct(private BusinessNameService $service)
